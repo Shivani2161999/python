@@ -1,0 +1,329 @@
+-->Clsss in python
+-->doc string :to access documentation string of the class
+  classname.__doc__
+  help(classname)
+-->SELF VARIABLE : it is like 'this' keyword in java.
+   It is the implicit variable always provided by the python virtual machine.
+   Always pointing to current object 
+   It is refference variable
+   print(id(self))==print(id(objectCreated)) // gives id of the just created object.e.g - 232323
+   For every instance method and the constructor the first argument must be 'self' but while calling the method we dont pass any 'self' arg to it...
+   You can use any another name insted of using self as argument in __init__() it is considered internally as self only..
+   
+    def __init__(s,sno,sname,smarks):
+                s.sno=sno
+                s.sname=sname
+                s.smarks=smarks
+        def info(x):
+         #for every method self is the compulsary argument
+                print("Student No :",x.sno)   
+                print("Student Name :",x.sname)   
+                print("Student Marks :",x.smarks)
+   Here program will give same ans as like when we provide self instead of 'x' 
+                
+   If u dont give self as arg in any method , the 1st arg is internally considered as the 'self'. 
+   Here python virtual machine is responsible to provide value of refference variable 'self' to every method.
+   By using self variable we can acceess the instance variable
+   By using self variable we can declare the instance variable
+
+-->CONSTRUCTOR : 
+   Special method in python.
+   FOR Every class the constructor name must be  __init__()
+   Biggest objective of the constructor is to declare & initialize instance variables.
+   Whenever the object of the class is created the constructor gets exicuted automatically and we dont need to call it explicitely.
+   For every object the constructor will be exicuted only once.
+   Constructor contains at least one arg and that is 'self'.
+-->METHOD OVERLOADING :
+   We say 2 methods are overloaded if both of them have same "name" but argument number,data types, order of passing is different. 
+   ==>In python the concept of overloading is 'not available'.
+   pvm will always consider the most rescent one constructor thet u have provided in the code.
+   
+   class Test:
+        def __init__(self):
+                print("Default constructor exicuted.")
+        def __init__(self,name):
+                self.name=name
+                print("Constructor with one Arg",self.name)
+   t=Test()
+   t1=Test("shivam")
+   
+   Here pvm consider only last constructor and hence here it will give typeError :
+   TypeError: __init__() takes exactly 2 arguments (1 given)
+   Corect ans :
+   class Test:
+        def __init__(self):
+                print("Default constructor exicuted.")
+        def __init__(self,name):
+                self.name=name
+                print("Constructor with one Arg",self.name)
+   t=Test("shivani")
+   t1=Test("shivam")
+   
+   => Here second constructor gets exicuted and not the first
+   
+-->Method() :
+   1.method name can be anything.
+   2.Method will be exicuted if we call it
+   3.Per object method can called any no.of times.
+   4.Inside the method the buisness logic is written.
+-->constructor():
+   1.name should be __init__()
+   2.Will be exicuted automatically as we create the oject of the class.
+   3.Per object can be called only once 
+   4.To declare and initialise the instance variables.
+
+-->Variabes In Python: Inside Python 3 Types of variables are allowed.
+
+
+ 1.Instance variables
+   ->declared using 'self' ex. 'self.name'=name
+   ->declared inside the constructor
+   ->for every object seperete copy of instance variables is created.
+   ->Object (level) related variables.
+ ==>places where instance variables are declared:
+      ->Inside Constructor
+      ->Inside Instance Method by using self
+   -> print(object.__dict__) prints the all instance variables created for an object. --------------------------------------------------------------
+ 2.Static variables
+  ->it is fixed variable
+  ->its singel copy is shared by all the objects.
+  ->also known as class level variables.
+  ->declared within the class but outside the any method.
+  ->declared Inside constructor or instance method by using class name
+  ->Inside classmethod using cls variable or class name.
+  ->Inside staticmethod using class name.
+  ->outside the class using class name.
+  -> print(classname.__dict__) prints the all static variables created in the class 'classname'.
+  ->static variable can only be modified using classname only.
+ ex: s
+ class Sd:
+  cname="Shivani"         # class variable or static veriable
+  def __init__(self):
+        Sd.var='tulip'     #static variable in constructor.
+        print("inside the constructor")
+  def sum(self): #instance method
+        Sd.sum=0; #static variable
+  @classmethod
+  def classmethod(cls):
+        cls.clgname='sggs' #static variable in class method
+        Sd.dept='cse'      #static variable in class method
+  @staticmethod
+  def staticmethod():
+        Sd.d='tulip'       #static variable in static method
+
+Sd.staticVarOutside=90     #outside the class
+
+   
+ ------------------------------------------------------------
+ 3.Local variables 
+  ->Declared inside the method,constructor for temporary purpose.
+  ->without self, cls keywords.
+  -> they are also called the method (level) variables.
+  ->can not be accessed outside the method in which it is declared.
+  ->can be returned to caling part.
+
+  e.g:
+  class A:
+    def m1(self):
+      a=10 #local variable
+
+    def m2(self):
+      b=37  #local variable
+      -----statements
+      -----
+      return b
+==============================================================
+
+-->Methods In Python: Inside Python 3 Types of methods are allowed.
+ 1.Instance methods/Object related methods
+   ->self must be required
+   ->methods we are using instance variables.
+   ->instance method is called (must)always by using object reffrence i.e objectReff.methodName()
+
+   syntax:
+   def instanceMethodName(self):
+    pass
+
+
+-------------------------------------------------------------
+ 2.class related method
+   ->For Every class to hold class level info, one class level object will be created.
+   ->Reffernce variable for that class object will be mainteined by pvm. It is always going to provide "cls" which means  "current class level object."
+   ->To declare class method compulsarily u need to use decorator '@classmethod'
+   ->using classname.mathodName() we can call classmethod 
+   ->using cls object we can access only class variables i.e instance variables
+   syntax:
+   def classMethodName(cls): #cls must required
+    pass
+ 
+  ex: 
+class Student:
+        clgname="SGGS" #class variable
+        def __init__(self,sno,sname,smarks):
+                self.sno=sno   #instance variable
+                self.sname=sname  #instance variable
+                self.smarks=smarks  #instance variable
+        
+        def display(self):
+         #for every method self is the compulsary argument
+                print("Student No :",self.sno)   
+                print("Student Name :",self.sname)   
+                print("Student Marks :",self.smarks)  
+        
+        @classmethod #decorator indicating class method.
+        def getClgName(cls): #class level object -> cls 
+                print("college name :",cls.clgname)  
+s1=Student(100,'shivani',99)
+s1.display()
+Student.getClgName()  #called using class name.
+s2=Student(200,'shalini',95)  
+s2.display()
+Student.getClgName() 
+
+-------------------------------------------------------------
+ 3.Static methods/general utility methods:
+  ->declared by using @staticmethod decoretor or without using @staticmethod but calling the method using class name --> classname.method()
+  ->used when we are not using any class level or object level data
+  ->
+-------------------------------------------------------------
+  
+==>inner classes :
+ ->Class declared inside the anpther class 
+ ->without existing one type of object if there is no chance of existing another type of object then we should go for inner classes.
+ ->we can create a class inside the class in python.
+ ->we can't access outer class method using inner class objects
+ ex 
+class Student:
+        def __init__(self,name):
+                self.name=name
+                self.lapObject=self.Laptop   #creating laptop object inside the student constructor. here for evey object of student one laptop class object gets created.
+        def show(self):
+                print(self.name)
+                self.lapObject.display()
+        
+        class Laptop:
+                def __init__(self):
+                        self.brand="Dell"
+                        self.ram=8
+                def dispaly(self):
+                        print(self.brand,self.ram)
+s1=Student('shiv')
+s2=Student('tulip')
+print(s1.lapObject.brand ) #print brand name for s1 object 
+s1.show()
+
+->we can also crete the object of laptop outside the student class as well as inside the student class.
+->inside the student class as shown in code above
+->outside the student class : 
+   lap1=Student.Laptop()  <-- U have to use Student.Laptop() because laptop can't Be accessed without Using Student.
+                   
+--------------------------------------------------------
+-->Inheritance : invilves superclass and subclasses.
+ ->the subclass inherit the members of the superclass, on the top of which it can add its own members
+1.Single Level Inheritance
+  A-->B
+2.MultiLevel Inheritance
+ A-->B-->C
+3.Multiple Inheritance 
+ A--|
+    -->C
+ B--|     
+-------------------------------------------------------
+==>Getter and Setter Methods
+ =>the main aim is to hide the data i.e to achieve the data encapsulation.(security)
+ ->advantage is the security
+ ->disadvantage is the code length increases.
+ ->setter method- used to set the value of the instance variable
+ 
+ syntax:
+ def setVariableName(self,value):
+  self.variableName=value
+
+ ->getter method is used to get/retrieve the data of the variable.
+ syntax: 
+  def getVariableName(self):
+    return self.variableName
+
+-------------------------------------------------------
+
+***INSTANCE METHOD VS CLASS METHOD :
+->Inside method body if we are using at least one instance variable then we should declare that method as instance method.
+
+->Inside method body if we are using only static variable then we should declare that method as class method.
+
+->To declare instance method we are not required to use any decorator but to declare class method we should use @classmethod decorator
+
+->The first arg to instance method should be self and by using self we can acess instance variables inside the method.
+
+->The first arg to class method should be cls which is refference variable to current class object and by using cls we can access static variables or class variables only.
+
+->Inside the instance methods we can access both instance and static variables by using self or classname.
+
+->Inside the class methods we can access only static variables and can't access instance variables.
+
+->we can call instance method by using object refference.
+
+->we can call classmethod either by using object refference or by using classname.  
+
+----------------------------------------------------------------------------------
+Private, public keywords in python :
+->python doesnt have private, public keywords
+->by default all variables declared in the class, program are considered as public.
+->In python __variablename is used to make the variable private.
+->we cant access it outside the class.
+->e.g
+class demo:
+  def __init__(self):
+    self.a=10
+    self._b=20
+    self.__c=30
+c=demo()
+print(c.a)
+print(c._b)
+print(c.__c)
+
+==>OUTPUT:
+hp@hp-Vostro-3578:~/Desktop$ python oops.py
+10
+20
+Traceback (most recent call last):
+  File "oops.py", line 278, in <module>
+    print(c.__c)
+AttributeError: demo instance has no attribute '__c'
+hp@hp-Vostro-3578:~/Desktop$ 
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
